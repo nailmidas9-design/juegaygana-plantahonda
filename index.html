@@ -11,53 +11,62 @@
     h2 { text-align: center; margin-top: 10px; color: #111; font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 5px; }
     .instrucciones { font-size: 14px; color: #666; text-align: center; margin-bottom: 15px; line-height: 1.4; }
     
-    /* Contenedor del Video Intro integrado que desaparece a los 4s */
-    #video-intro-container {
+    /* CONTENEDOR INTRO PARA TU ARTE VERTICAL PREMIUM */
+    #intro-foto-container {
       width: 100%;
       border-radius: 12px;
       overflow: hidden;
       margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.3);
       border: 2px solid #cc0000;
-      position: relative;
-      padding-top: 56.25%; /* Proporción 16:9 */
-      background: #000;
-      transition: all 0.5s ease-in-out;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      max-height: 85vh;
+      opacity: 1;
     }
-    #video-intro-container.hidden {
+    #intro-foto-container.hidden {
       max-height: 0;
-      padding-top: 0;
       margin-bottom: 0;
       opacity: 0;
+      padding: 0;
       border: none;
       pointer-events: none;
     }
-    #video-intro-container iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
+    #intro-foto-container img {
       width: 100%;
-      height: 100%;
-      border: none;
+      height: auto;
+      display: block;
     }
 
-    /* Barra de Progreso con el logo de la planta */
-    .progress-container { margin-bottom: 20px; background: #eee; border-radius: 12px; padding: 3px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 20px; }
+    /* Barra de Progreso con Logo de Planta */
+    .progress-container { margin-bottom: 20px; background: #eee; border-radius: 12px; padding: 3px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 22px; }
     .progress-bar { height: 100%; background: #cc0000; width: 0%; border-radius: 10px; transition: width 0.5s ease-in-out; position: relative; }
-    .planta-logo-icono { position: absolute; right: -10px; top: -6px; font-size: 22px; z-index: 10; }
+    
+    .planta-logo-icono { 
+      position: absolute; 
+      right: -15px; 
+      top: -10px; 
+      width: 40px; 
+      height: 40px; 
+      z-index: 10; 
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .planta-logo-icono img { width: 100%; height: auto; }
+
     .progress-text { text-align: center; font-size: 13px; font-weight: bold; margin-top: 5px; color: #111; }
     
     /* Cuadrícula de Tickets */
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(55px, 1fr)); gap: 6px; max-height: 230px; overflow-y: auto; padding: 8px; border: 1px solid #eef0f2; border-radius: 10px; background: #fafafa; margin-bottom: 20px; }
     .btn-ticket { position: relative; padding: 10px 2px; border: 1px solid #dbe0e5; background: #fff; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 13px; text-align: center; }
     
-    .btn-ticket.seleccionado { background: #28a745 !important; color: #fff !important; border-color: #28a745 !important; font-weight: 900; }
+    .btn-ticket.seleccionado { background: #28a745 !important; color: #fff !important; border-color: #28a745 !important; }
     .btn-ticket.vendido { background: #ffebee; color: #b71c1c; border-color: #ffcbd1; cursor: not-allowed; }
     .btn-ticket.vendido::after { content: "X"; position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900; color: rgba(183, 28, 28, 0.5); background: rgba(255, 235, 235, 0.3); border-radius: 7px; }
     
     .form-group { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: #222; text-transform: uppercase; }
-    input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 14px; background: #fff; }
+    label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: #222; }
+    input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
     
     .display-monto { background: #111; font-weight: bold; color: #fff; text-align: center; font-size: 18px; padding: 14px; border-radius: 8px; line-height: 1.5; }
     .btn-action { width: 100%; padding: 14px; background: #111; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
@@ -74,7 +83,6 @@
 
     .accordion { border: 1px solid #dbe0e5; border-radius: 8px; margin-bottom: 20px; overflow: hidden; }
     .accordion-header { background: #f4f6f8; padding: 12px; font-size: 13px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; color: #cc0000; }
-    /* Letra normal desmarcada de negrita para las condiciones */
     .accordion-content { padding: 12px; font-size: 13px; color: #555; line-height: 1.4; display: none; background: #fff; font-weight: normal !important; }
 
     #msg { margin-top: 15px; text-align: center; font-weight: 600; font-size: 14px; padding: 12px; border-radius: 8px; display: none; }
@@ -90,20 +98,19 @@
 
 <div class="container">
   
-  <!-- PÁGINA 1 -->
   <div id="page-1" class="page active">
-    <h2>🎟️ MÓNTATE EN LA HONDA Y GANA</h2>
+    <h2>🎟️ Móntate en la Honda y Gana</h2>
     <div class="instrucciones">Elige tus números, completa tus datos y participa</div>
 
-    <!-- El video embebido correctamente para reproducir sin trabas -->
-    <div id="video-intro-container">
-      <iframe src="https://drive.google.com/file/d/1-R7ZELQdF6Jo-CSu3jDeF-1Y-VrdRkEX/preview?autoplay=1" allow="autoplay"></iframe>
+    <div id="intro-foto-container">
+      <img id="img-planta-impacto" src="https://lh3.googleusercontent.com/d/1mfd72SdumMWds2VIsZJ5twzJfHyk_CFd" alt="Hoy toca o no toca">
     </div>
 
-    <!-- Barra de Progreso con el logo de la planta -->
     <div class="progress-container">
       <div id="mi-barra" class="progress-bar">
-        <div class="planta-logo-icono">🔌</div>
+        <div class="planta-logo-icono">
+            <span style="font-size: 22px; line-height: 1;">🔌</span>
+        </div>
       </div>
     </div>
     <div id="progreso-texto" class="progress-text">Cargando venta de boletos...</div>
@@ -154,7 +161,6 @@
     <button type="button" class="btn-action" id="btn-continuar" disabled onclick="irAPaso2()">Un paso mas 👉</button>
   </div>
 
-  <!-- PÁGINA 2 -->
   <div id="page-2" class="page">
     <button type="button" class="btn-back-top" onclick="irAPaso1()">◀ ups se me olvidó algo</button>
     
@@ -208,13 +214,13 @@
   const PRECIO_TICKET_BS = 2400;
 
   window.onload = function() {
-    // Esconder el contenedor del video a los 4 segundos exactos
+    // PROGRAMADO A 6 SEGUNDOS EXACTOS PARA QUE SE PUEDA LEER CON CALMA EL GANCHO DEL APAGÓN
     setTimeout(function() {
-      const videoCont = document.getElementById('video-intro-container');
-      if (videoCont) {
-        videoCont.classList.add('hidden');
+      const fotoCont = document.getElementById('intro-foto-container');
+      if (fotoCont) {
+        fotoCont.classList.add('hidden');
       }
-    }, 4000);
+    }, 6000);
 
     fetch(WEB_APP_URL + "?run=obtenerTicketsYDatos")
       .then(res => res.json())
