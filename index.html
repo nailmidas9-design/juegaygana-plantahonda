@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Móntate en la Honda y Gana</title>
+  <title>Montate en la Honda y Gana</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
@@ -12,7 +12,6 @@
     body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #cc0000; color: #333; margin: 0; padding: 15px; display: flex; flex-direction: column; align-items: center; }
     .container { max-width: 500px; width: 100%; background: #fff; padding: 25px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); box-sizing: border-box; position: relative; }
     
-    /* TÍTULO CON FUENTE MONTSERRAT DE AGENCIA */
     h2 { 
       text-align: center; 
       margin-top: 10px; 
@@ -34,7 +33,6 @@
     .progress-container { margin-bottom: 20px; background: #eee; border-radius: 12px; padding: 3px; position: relative; height: 22px; margin-top: 10px; }
     .progress-bar { height: 100%; background: #00c853; width: 0%; border-radius: 10px; transition: width 0.5s ease-in-out; position: relative; }
     
-    /* Logo de la planta local flotante sin fondos */
     .planta-logo-icono { position: absolute; right: -25px; top: -14px; width: 50px; z-index: 10; }
     .planta-logo-icono img { width: 100%; height: auto; display: block; background: transparent; border: none; }
 
@@ -73,7 +71,6 @@
 
     .leyenda { display: flex; justify-content: center; gap: 12px; margin-bottom: 15px; font-size: 12px; }
     
-    /* ESTILO PARA PRECIO Y DETALLE DEL DÓLAR CHICO */
     .info-precio { font-size: 15px; color: #cc0000; text-align: center; margin-bottom: 15px; font-weight: bold; background: #fef2f2; padding: 8px; border-radius: 6px; border: 1px dashed #fca5a5; }
     .info-precio small { font-size: 11px; vertical-align: top; margin-right: 1px; font-weight: bold; color: #cc0000; }
     .info-precio span.usd-val { font-size: 15px; font-weight: bold; color: #cc0000; }
@@ -83,9 +80,15 @@
     .error { background: #ffebee; color: #b71c1c; }
     .page { display: none; }
     .page.active { display: block; }
+
+    /* Alerta personalizada para no usar alert() en iframe */
+    .custom-alert { display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #ffcbd1; color: #b71c1c; padding: 15px 20px; border-radius: 8px; border: 1px solid #b71c1c; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 1000; font-weight: bold; text-align: center; font-size: 14px; width: 90%; max-width: 400px; }
   </style>
 </head>
 <body>
+
+<!-- Alerta limpia libre de popups de navegador -->
+<div id="custom-alert" class="custom-alert">⚠️ Por favor, introduce tu Nombre, Apellido y Teléfono antes de continuar.</div>
 
 <div class="container">
   
@@ -200,8 +203,8 @@
 </div>
 
 <script>
-  // RECUERDA GENERAR UNA NUEVA IMPLEMENTACIÓN EN APPS SCRIPT Y REEMPLAZAR ESTA URL SI TE DA ERROR 500
-  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz6A1uhQwVXgJfJDU2Wz2AXZYrBlE2j8MRGnGMmQUOCKHvWH0zB8aEGXCpTYMZGgUWi/exec"; 
+  // URL de tu aplicación Google Apps Script enlazada correctamente
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw2Cft6UbZcNFfU_bf7I0PUwhpLD8SZglkEFBiPiop7CMiZBqr2zPvafcoBusD1lb3T/exec"; 
   let ticketsSeleccionados = [];
   const PRECIO_TICKET_BS = 2400;
 
@@ -213,23 +216,23 @@
       }
     }, 6000);
 
-    // LLAMADA LIMPIA SIN PARÁMETROS RAROS
+    // Carga inicial de números desde Google Sheets
     fetch(WEB_APP_URL)
       .then(res => {
-        if (!res.ok) throw new Error('Error en respuesta del servidor.');
+        if (!res.ok) throw new Error('Error de servidor');
         return res.json();
       })
       .then(json => {
         if (json.error) {
-          console.error("Error desde Apps Script:", json.error);
-          document.getElementById('grid-tickets').innerText = "Error en base de datos. Verifica Apps Script.";
+          console.error("Error desde Sheets:", json.error);
+          document.getElementById('grid-tickets').innerText = "Error cargando números.";
         } else {
           inicializarDatos(json);
         }
       })
       .catch(err => {
-        console.error("Error rápido de conexión:", err);
-        document.getElementById('grid-tickets').innerText = "No se pudieron cargar los números. Revisa la URL del Web App.";
+        console.error("Error de conexión:", err);
+        document.getElementById('grid-tickets').innerText = "Error al cargar la cuadrícula. Revisa la URL.";
       });
   };
 
@@ -292,7 +295,7 @@
     const nombre = document.getElementById('nombre').value.trim();
     const tlf = document.getElementById('telefono').value.trim();
     if(!nombre || !tlf) {
-      alert("Por favor, introduce tu Nombre, Apellido y Teléfono antes de continuar.");
+      mostrarAlertaPersonalizada();
       return;
     }
     const totalBolivares = ticketsSeleccionados.length * PRECIO_TICKET_BS;
@@ -308,13 +311,26 @@
     window.scrollTo(0,0);
   }
 
+  function mostrarAlertaPersonalizada() {
+    const el = document.getElementById('custom-alert');
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 3500);
+  }
+
   function copiarTexto(idElemento, boton) {
     const texto = document.getElementById(idElemento).innerText;
-    navigator.clipboard.writeText(texto).then(() => {
-      const originalText = boton.innerText;
-      boton.innerText = "¡Copiado!";
-      setTimeout(() => { boton.innerText = originalText; }, 1500);
-    });
+    
+    // Copiado seguro y robusto para iframes de Github Pages
+    const tempInput = document.createElement("input");
+    tempInput.value = texto;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    const originalText = boton.innerText;
+    boton.innerText = "¡Copiado!";
+    setTimeout(() => { boton.innerText = originalText; }, 1500);
   }
 
   function alternarAcordeon() {
@@ -359,11 +375,11 @@
             ticketsSeleccionados = [];
             irAPaso1();
             
-            // Recargar números de forma limpia después de jugar exitosamente
+            // Recarga automática e instantánea de la cuadrícula al guardar
             fetch(WEB_APP_URL)
               .then(r => r.json())
               .then(j => inicializarDatos(j))
-              .catch(err => console.error("Error al recargar tras jugada:", err));
+              .catch(err => console.error(err));
           } else {
             msgDiv.className = "error";
             msgDiv.innerText = res.mensaje;
@@ -376,7 +392,7 @@
           const msgDiv = document.getElementById('msg');
           msgDiv.style.display = "block";
           msgDiv.className = "error";
-          msgDiv.innerText = "Error de red al procesar tu jugada. Intenta de nuevo.";
+          msgDiv.innerText = "Error al procesar tu jugada. Intenta nuevamente.";
           btnSubmit.disabled = false;
           btnSubmit.innerText = "Todo listo a Jugar";
         });
