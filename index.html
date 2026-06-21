@@ -37,22 +37,22 @@
       display: block;
     }
 
-    /* Barra de Progreso con Logo de Planta */
-    .progress-container { margin-bottom: 20px; background: #eee; border-radius: 12px; padding: 3px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 22px; }
-    .progress-bar { height: 100%; background: #cc0000; width: 0%; border-radius: 10px; transition: width 0.5s ease-in-out; position: relative; }
+    /* Barra de Progreso - AHORA EN VERDE */
+    .progress-container { margin-bottom: 20px; background: #eee; border-radius: 12px; padding: 3px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); position: relative; height: 22px; margin-top: 10px; }
+    .progress-bar { height: 100%; background: #00c853; width: 0%; border-radius: 10px; transition: width 0.5s ease-in-out; position: relative; }
     
     .planta-logo-icono { 
       position: absolute; 
-      right: -15px; 
-      top: -10px; 
-      width: 40px; 
-      height: 40px; 
+      right: -20px; 
+      top: -14px; 
+      width: 46px; 
+      height: 46px; 
       z-index: 10; 
       display: flex;
       align-items: center;
       justify-content: center;
     }
-    .planta-logo-icono img { width: 100%; height: auto; }
+    .planta-logo-icono img { width: 100%; height: auto; display: block; }
 
     .progress-text { text-align: center; font-size: 13px; font-weight: bold; margin-top: 5px; color: #111; }
     
@@ -68,10 +68,13 @@
     label { display: block; margin-bottom: 6px; font-size: 13px; font-weight: 700; color: #222; }
     input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; box-sizing: border-box; font-size: 14px; }
     
-    .display-monto { background: #111; font-weight: bold; color: #fff; text-align: center; font-size: 18px; padding: 14px; border-radius: 8px; line-height: 1.5; }
-    .btn-action { width: 100%; padding: 14px; background: #111; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
-    .btn-action:disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; }
-    .btn-ganar { background: #28a745 !important; box-shadow: 0 4px 12px rgba(40,167,69,0.3); font-size: 18px; }
+    /* CAJA DE MONTO EN COLOR DORADO (#ffd700) CON TEXTO OSCURO PARA EXCELENTE CONTRASTE */
+    .display-monto { background: #ffd700; font-weight: bold; color: #111; text-align: center; font-size: 18px; padding: 14px; border-radius: 8px; line-height: 1.5; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.15); }
+    
+    /* BOTÓN CONTINUAR EN COLOR VERDE (#00c853) */
+    .btn-action { width: 100%; padding: 14px; background: #00c853; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; box-shadow: 0 4px 12px rgba(0, 200, 83, 0.2); }
+    .btn-action:disabled { background: #cbd5e1; color: #94a3b8; cursor: not-allowed; box-shadow: none; }
+    .btn-ganar { background: #00c853 !important; box-shadow: 0 4px 12px rgba(0, 200, 83, 0.3); font-size: 18px; }
     
     .btn-back-top { background: none; border: none; color: #666; font-size: 13px; font-weight: 600; cursor: pointer; padding: 0; margin-bottom: 15px; text-decoration: underline; }
     .pm-box { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 10px; padding: 15px; margin-bottom: 20px; }
@@ -102,6 +105,7 @@
     <h2>🎟️ Móntate en la Honda y Gana</h2>
     <div class="instrucciones">Elige tus números, completa tus datos y participa</div>
 
+    <!-- IMAGEN DE IMPACTO DE DRIVE VINCULADA -->
     <div id="intro-foto-container">
       <img id="img-planta-impacto" src="https://lh3.googleusercontent.com/d/1mfd72SdumMWds2VIsZJ5twzJfHyk_CFd" alt="Hoy toca o no toca">
     </div>
@@ -109,7 +113,8 @@
     <div class="progress-container">
       <div id="mi-barra" class="progress-bar">
         <div class="planta-logo-icono">
-            <span style="font-size: 22px; line-height: 1;">🔌</span>
+            <!-- LOGO PNG TRANSPARENTE DE LA PLANTA AVANZANDO -->
+            <img id="logo-avanza" src="https://lh3.googleusercontent.com/d/1mD46Oa0hN7Oq1FySkTMbW-vdtmnvRQcB" alt="Planta">
         </div>
       </div>
     </div>
@@ -143,6 +148,7 @@
     </div>
 
     <div class="form-group">
+      <!-- VISOR EN DORADO -->
       <div class="display-monto" id="monto-calculado">
         Total Tickets: 0<br>
         Total: 0,00 Bs.
@@ -158,7 +164,8 @@
       <input type="tel" id="telefono" placeholder="Ej. 04121234567">
     </div>
 
-    <button type="button" class="btn-action" id="btn-continuar" disabled onclick="irAPaso2()">Un paso mas 👉</button>
+    <!-- COPY ACTUALIZADO Y EN COLOR VERDE -->
+    <button type="button" class="btn-action" id="btn-continuar" disabled onclick="irAPaso2()">Ultimo paso para jugar 👉</button>
   </div>
 
   <div id="page-2" class="page">
@@ -193,6 +200,7 @@
     <form id="rf-form" onsubmit="prepararEnvio(event)">
       <div class="form-group">
         <label>Monto a transferir:</label>
+        <!-- VISOR EN DORADO EN PASO 2 -->
         <div class="display-monto" id="monto-confirmar">0,00 Bs.</div>
       </div>
 
@@ -201,6 +209,7 @@
         <input type="file" id="capture-file" accept="image/*" required>
       </div>
 
+      <!-- BOTÓN "VOY A GANAR" EN VERDE -->
       <button type="submit" class="btn-action btn-ganar" id="btn-enviar">Voy a Ganar 🚀</button>
     </form>
   </div>
@@ -214,7 +223,6 @@
   const PRECIO_TICKET_BS = 2400;
 
   window.onload = function() {
-    // PROGRAMADO A 6 SEGUNDOS EXACTOS PARA QUE SE PUEDA LEER CON CALMA EL GANCHO DEL APAGÓN
     setTimeout(function() {
       const fotoCont = document.getElementById('intro-foto-container');
       if (fotoCont) {
@@ -263,7 +271,7 @@
     const index = ticketsSeleccionados.indexOf(numero);
     if (index === -1) {
       ticketsSeleccionados.push(numero);
-      elemento.classList.add('seleccionado');
+      elementoo.classList.add('seleccionado');
     } else {
       ticketsSeleccionados.splice(index, 1);
       elemento.classList.remove('seleccionado');
