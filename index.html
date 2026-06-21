@@ -213,7 +213,7 @@
       }
     }, 6000);
 
-    fetch(WEB_APP_URL + "?run=obtenerTicketsYDatos")
+    fetch(WEB_APP_URL)
       .then(res => res.json())
       .then(json => inicializarDatos(json))
       .catch(err => console.error("Error rápido:", err));
@@ -344,7 +344,7 @@
             document.getElementById('rf-form').reset();
             ticketsSeleccionados = [];
             irAPaso1();
-            fetch(WEB_APP_URL + "?run=obtenerTicketsYDatos").then(r => r.json()).then(j => inicializarDatos(j));
+            fetch(WEB_APP_URL).then(r => r.json()).then(j => inicializarDatos(j));
           } else {
             msgDiv.className = "error";
             msgDiv.innerText = res.mensaje;
