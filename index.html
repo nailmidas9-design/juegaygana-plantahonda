@@ -200,7 +200,7 @@
 </div>
 
 <script>
-  // TU NUEVA URL ENLAZADA CORRECTAMENTE AQUÍ
+  // RECUERDA GENERAR UNA NUEVA IMPLEMENTACIÓN EN APPS SCRIPT Y REEMPLAZAR ESTA URL SI TE DA ERROR 500
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbz6A1uhQwVXgJfJDU2Wz2AXZYrBlE2j8MRGnGMmQUOCKHvWH0zB8aEGXCpTYMZGgUWi/exec"; 
   let ticketsSeleccionados = [];
   const PRECIO_TICKET_BS = 2400;
@@ -213,10 +213,24 @@
       }
     }, 6000);
 
+    // LLAMADA LIMPIA SIN PARÁMETROS RAROS
     fetch(WEB_APP_URL)
-      .then(res => res.json())
-      .then(json => inicializarDatos(json))
-      .catch(err => console.error("Error rápido:", err));
+      .then(res => {
+        if (!res.ok) throw new Error('Error en respuesta del servidor.');
+        return res.json();
+      })
+      .then(json => {
+        if (json.error) {
+          console.error("Error desde Apps Script:", json.error);
+          document.getElementById('grid-tickets').innerText = "Error en base de datos. Verifica Apps Script.";
+        } else {
+          inicializarDatos(json);
+        }
+      })
+      .catch(err => {
+        console.error("Error rápido de conexión:", err);
+        document.getElementById('grid-tickets').innerText = "No se pudieron cargar los números. Revisa la URL del Web App.";
+      });
   };
 
   function inicializarDatos(resultado) {
@@ -344,13 +358,27 @@
             document.getElementById('rf-form').reset();
             ticketsSeleccionados = [];
             irAPaso1();
-            fetch(WEB_APP_URL).then(r => r.json()).then(j => inicializarDatos(j));
+            
+            // Recargar números de forma limpia después de jugar exitosamente
+            fetch(WEB_APP_URL)
+              .then(r => r.json())
+              .then(j => inicializarDatos(j))
+              .catch(err => console.error("Error al recargar tras jugada:", err));
           } else {
             msgDiv.className = "error";
             msgDiv.innerText = res.mensaje;
             btnSubmit.disabled = false;
             btnSubmit.innerText = "Todo listo a Jugar";
           }
+        })
+        .catch(err => {
+          console.error("Error en POST:", err);
+          const msgDiv = document.getElementById('msg');
+          msgDiv.style.display = "block";
+          msgDiv.className = "error";
+          msgDiv.innerText = "Error de red al procesar tu jugada. Intenta de nuevo.";
+          btnSubmit.disabled = false;
+          btnSubmit.innerText = "Todo listo a Jugar";
         });
       };
       lector.readAsDataURL(archivo);
