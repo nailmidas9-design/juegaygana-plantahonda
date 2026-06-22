@@ -1,9 +1,10 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Montate en la Honda y Gana</title>
+  <title>Móntate en la Honda y Gana</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
@@ -14,17 +15,42 @@
     
     h2 { 
       text-align: center; 
-      margin-top: 10px; 
+      margin-top: 5px; 
       color: #111; 
       font-family: 'Montserrat', sans-serif;
       font-size: 26px; 
       font-weight: 900; 
       text-transform: uppercase; 
       letter-spacing: -1px; 
-      margin-bottom: 5px; 
+      margin-bottom: 2px; 
     }
     .instrucciones { font-size: 14px; color: #666; text-align: center; margin-bottom: 15px; line-height: 1.4; }
     
+    /* Sello de Confianza Lotería del Zulia */
+    .sello-confianza {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      border-radius: 10px;
+      padding: 8px 12px;
+      margin-bottom: 15px;
+    }
+    .sello-confianza span {
+      font-size: 11px;
+      font-weight: bold;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .sello-confianza img {
+      height: 28px;
+      width: auto;
+      display: block;
+    }
+
     #intro-foto-container { width: 100%; border-radius: 12px; overflow: hidden; margin-bottom: 20px; box-shadow: 0 6px 15px rgba(0,0,0,0.3); border: 2px solid #cc0000; transition: all 0.8s ease; max-height: 85vh; opacity: 1; }
     #intro-foto-container.hidden { max-height: 0; margin-bottom: 0; opacity: 0; padding: 0; border: none; pointer-events: none; }
     #intro-foto-container img { width: 100%; height: auto; display: block; }
@@ -87,23 +113,29 @@
 </head>
 <body>
 
-<!-- Alerta limpia libre de popups de navegador -->
 <div id="custom-alert" class="custom-alert">⚠️ Por favor, introduce tu Nombre, Apellido y Teléfono antes de continuar.</div>
 
 <div class="container">
   
   <div id="page-1" class="page active">
-    <h2>Montate en la Honda y Gana</h2>
+    <h2>🎟️ Montate en la Honda y Gana</h2>
+    
+    <!-- Sello de Confianza con la Lotería del Zulia -->
+    <div class="sello-confianza">
+      <span>Avalado por:</span>
+      <img src="loteria-zulia.png" alt="Lotería del Zulia" onerror="this.style.display='none'; this.previousElementSibling.innerText='Sorteo Oficial por Triple Zulia';">
+    </div>
+
     <div class="instrucciones">Elige tus números, completa tus datos y participa</div>
 
     <div id="intro-foto-container">
-      <img id="img-planta-impacto" src="apagon.png" alt="Hoy toca o no toca">
+      <img id="img-planta-impacto" src="apagon.png" alt="Hoy toca o no toca" onerror="this.onerror=null; this.src='https://placehold.co/500x300/cc0000/ffffff?text=Sorteo+Honda+Civic';">
     </div>
 
     <div class="progress-container">
       <div id="mi-barra" class="progress-bar">
         <div class="planta-logo-icono">
-            <img src="planta-logo.png" alt="Planta">
+            <img src="planta-logo.png" alt="Planta" onerror="this.style.display='none';">
         </div>
       </div>
     </div>
@@ -117,7 +149,7 @@
       <div class="accordion-content" id="acc-content">
         * 📅 El sorteo juega el <strong>31 de JULIO 2026</strong> a las <strong>7:05 PM</strong>.<br>
         * 📈 Se debe cumplir con una meta mínima del <strong>70%</strong> de los números vendidos para proceder con el sorteo en la fecha indicada. De lo contrario, se pospondrá.<br>
-        * 🔮 Garantía de <strong>Ganador</strong>: Si en el sorteo de <strong>Triple A</strong> sale un número que no fue seleccionado se tomará en cuenta el <strong>triple B</strong>. Queremos que haya un <strong>ganador</strong>.
+        * 🔮 Garantía de <strong>Ganador</strong>: Jugamos directamente por los resultados oficiales de la **Lotería del Zulia (Triple Zulia)**. Si en el sorteo del **Triple A** sale un número que no fue vendido, se tomará como ganador el número correspondiente del **Triple B**. ¡Queremos que haya un ganador sí o sí!
       </div>
     </div>
 
@@ -125,7 +157,7 @@
 
     <div class="leyenda">
       <div style="display:flex; align-items:center; gap:4px;"><div style="width:10px; height:10px; border:1px solid #cbd3da; background:#fff; border-radius:3px;"></div> Disponible</div>
-      <div style="display:flex; align-items:center; gap:4px;"><div style="width:10px; height:10px; border:1px solid #ffcbd1; background:#ffebee; border-radius:3px;"></div> Vendido</div>
+      <div style="display:flex; align-items:center; gap:4px;"><div style="width:10px; height:10px; background:#ffebee; border:1px solid #ffcbd1; border-radius:3px;"></div> Vendido</div>
       <div style="display:flex; align-items:center; gap:4px;"><div style="width:10px; height:10px; background:#00c853; border-radius:3px;"></div> Seleccionado</div>
     </div>
 
@@ -203,7 +235,7 @@
 </div>
 
 <script>
-  // URL de tu aplicación Google Apps Script enlazada correctamente
+  // URL de tu Apps Script ya sincronizada
   const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw2Cft6UbZcNFfU_bf7I0PUwhpLD8SZglkEFBiPiop7CMiZBqr2zPvafcoBusD1lb3T/exec"; 
   let ticketsSeleccionados = [];
   const PRECIO_TICKET_BS = 2400;
@@ -216,7 +248,7 @@
       }
     }, 6000);
 
-    // Carga inicial de números desde Google Sheets
+    // Carga inicial de números
     fetch(WEB_APP_URL)
       .then(res => {
         if (!res.ok) throw new Error('Error de servidor');
@@ -232,7 +264,7 @@
       })
       .catch(err => {
         console.error("Error de conexión:", err);
-        document.getElementById('grid-tickets').innerText = "Error al cargar la cuadrícula. Revisa la URL.";
+        document.getElementById('grid-tickets').innerText = "Error al conectar con la base de datos.";
       });
   };
 
@@ -320,7 +352,6 @@
   function copiarTexto(idElemento, boton) {
     const texto = document.getElementById(idElemento).innerText;
     
-    // Copiado seguro y robusto para iframes de Github Pages
     const tempInput = document.createElement("input");
     tempInput.value = texto;
     document.body.appendChild(tempInput);
@@ -375,7 +406,7 @@
             ticketsSeleccionados = [];
             irAPaso1();
             
-            // Recarga automática e instantánea de la cuadrícula al guardar
+            // Recargar cuadrícula inmediatamente
             fetch(WEB_APP_URL)
               .then(r => r.json())
               .then(j => inicializarDatos(j))
@@ -403,3 +434,4 @@
 </script>
 </body>
 </html>
+```
